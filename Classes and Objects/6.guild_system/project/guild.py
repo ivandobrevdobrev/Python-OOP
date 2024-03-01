@@ -1,6 +1,8 @@
 from project import player
 from project.player import Player
-#from player import Player
+
+
+# from player import Player
 
 
 class Guild:
@@ -17,17 +19,15 @@ class Guild:
         player.guild = self.name
         return f"Welcome player {player.name} to the guild {self.name}"
 
-    def kick_player(self,player_name: str):
-        if player_name not in self.players:
-            return f"Player {player_name} is not in the guild."
-        self.players.remove(player_name)
-        player.guild = "Unaffiliated"
-        return f"Player {player_name} has been removed from the guild."
+    def kick_player(self, player_name: str):
+        for player in self.players:
+            if player_name == player.name:
+                self.players.remove(player)
+                player.guild = "Unaffiliated"
+                return f"Player {player_name} has been removed from the guild."
+        return f"Player {player_name} is not in the guild."
 
     def guild_info(self):
         players_info = "\n".join(f"{p.player_info()}" for p in self.players)
-        return f"Guild: {self.name}\n"\
+        return f"Guild: {self.name}\n" \
                f"{players_info}"
-
-
-
